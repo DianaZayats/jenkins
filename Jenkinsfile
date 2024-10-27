@@ -2,6 +2,15 @@ pipeline {
     options { timestamps() }
     agent none
     stages {
+        stage('Add GitHub to known_hosts') {
+            agent any
+            steps {
+                sh '''
+                mkdir -p ~/.ssh
+                ssh-keyscan github.com >> ~/.ssh/known_hosts
+                '''
+            }
+        } // stage Add GitHub to known_hosts
         stage('Checkout SCM') {
             agent any
             steps {
