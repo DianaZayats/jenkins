@@ -24,27 +24,29 @@ pipeline {
             }
         } // stage Build
         stage('Test') {
-    agent { docker { image 'alpine' } }
-    steps {
-        sh '''
-        apk add --no-cache python3 py3-pip
-        python3 -m venv venv
-        . venv/bin/activate
-        pip install Flask
-        pip install xmlrunner
-        python3 app_tests.py
-        deactivate
-        '''
-    }
-    post {
-        always {
-            junit 'test-reports/*.xml'
-        }
-        success {
-            echo "Application testing successfully completed"
-        }
-        failure {
-            echo "Oooppss!!! Tests failed!"
-        }
-    }
-}
+            agent agent { docker { image 'alpine' args '-u root' } }
+            steps {
+                sh '''
+                apk add --no-cache python3 py3-pip
+                python3 -m venv venv
+                . venv/bin/activate
+                pip install Flask
+                pip install xmlrunner
+                python3 app_tests.py
+                deactivate
+                '''
+            }
+            post {
+                always {
+                    junit 'test-reports/*.xml'
+                }
+                success {
+                    echo "Application testing successfully completed"
+                }
+                failure {
+                    echo "Oooppss!!! Tests failed!"
+                }
+            } // post
+        } // stage Test
+    } // stages
+} // pipeline
