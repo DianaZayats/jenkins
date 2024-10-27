@@ -14,7 +14,7 @@ pipeline {
         stage('Checkout SCM') {
             agent any
             steps {
-                git url: 'git@github.com:DianaZayats/jenkins.git', credentialsId: 'github-ssh-key'
+                git url: 'git@github.com:DianaZayats/jenkins.git', credentialsId: 'ssh-private-key'
             }
         } // stage Checkout SCM
         stage('Build') {
