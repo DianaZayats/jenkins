@@ -2,12 +2,12 @@ pipeline {
     options { timestamps() }
     agent none
     stages {
-        stage('Check scm') {
+        stage('Checkout SCM') {
             agent any
             steps {
-                checkout scm
+                git url: 'git@github.com:DianaZayats/jenkins.git', credentialsId: 'github-ssh-key'
             }
-        } // stage Check scm
+        } // stage Checkout SCM
         stage('Build') {
             steps {
                 echo "Building ...${BUILD_NUMBER}"
@@ -27,7 +27,7 @@ pipeline {
                     junit 'test-reports/*.xml'
                 }
                 success {
-                    echo "Application testing successfully completed "
+                    echo "Application testing successfully completed"
                 }
                 failure {
                     echo "Oooppss!!! Tests failed!"
