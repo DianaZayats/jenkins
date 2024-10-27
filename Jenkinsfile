@@ -27,15 +27,14 @@ pipeline {
         stage('Test') {
             agent {
                 docker {
-                    image 'python:3.12' // Використовуйте Python офіційний образ
+                    image 'python:3.12'
                     args '-u root'
                 }
             }
             steps {
                 sh '''
-                python3 -m venv venv
-                . venv/bin/activate
                 pip install Flask xmlrunner
+                pip install --upgrade pip
                 python3 -m unittest discover -s . -p "test_*.py" --buffer
                 '''
             }
