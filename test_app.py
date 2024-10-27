@@ -1,6 +1,5 @@
 import unittest
 import app as tested_app
-import json
 
 class FlaskAppTests(unittest.TestCase):
     def setUp(self):
