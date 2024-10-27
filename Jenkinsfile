@@ -18,13 +18,14 @@ pipeline {
             }
         } // stage Checkout SCM
         stage('Build') {
+            agent any
             steps {
                 echo "Building ...${BUILD_NUMBER}"
                 echo "Build completed"
             }
         } // stage Build
         stage('Test') {
-            agent agent { docker { image 'alpine' args '-u root' } }
+            agent { docker { image 'alpine' args '-u root' } }
             steps {
                 sh '''
                 apk add --no-cache python3 py3-pip
@@ -46,7 +47,7 @@ pipeline {
                 failure {
                     echo "Oooppss!!! Tests failed!"
                 }
-            } // post
+            }
         } // stage Test
     } // stages
 } // pipeline
