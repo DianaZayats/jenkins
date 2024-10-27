@@ -33,9 +33,9 @@ pipeline {
             }
             steps {
                 sh '''
-                pip install Flask xmlrunner
+                pip install Flask pytest
                 pip install --upgrade pip
-                python3 -m unittest discover -s . -p "test_*.py" --buffer
+                pytest --junitxml=test-reports/results.xml
                 '''
             }
             post {
