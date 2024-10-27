@@ -25,7 +25,12 @@ pipeline {
             }
         } // stage Build
         stage('Test') {
-            agent { docker { image 'alpine' args '-u root' } }
+            agent {
+                docker {
+                    image 'alpine'
+                    args '-u root'
+                }
+            }
             steps {
                 sh '''
                 apk add --no-cache python3 py3-pip
