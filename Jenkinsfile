@@ -64,7 +64,7 @@ pipeline {
             steps {
                 script {
                     def dockerUsername = 'zzzayats' //  логін до Docker Hub
-                    def dockerPassword = 'PXSJFBJPEWGN200' //  пароль до Docker Hub
+                    def dockerPassword = 'PXSJFJBPEWGNG200' //  пароль до Docker Hub
                     sh "echo ${dockerPassword} | docker login -u ${dockerUsername} --password-stdin"
                 }
             }
