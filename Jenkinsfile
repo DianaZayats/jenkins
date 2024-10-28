@@ -50,5 +50,23 @@ pipeline {
                 }
             }
         }
+        stage('Build Docker Image') {
+            agent any
+            steps {
+                script {
+                    def imageName = "lab4-jenkins:${BUILD_NUMBER}"
+                    sh "docker build -t ${imageName} ."
+                }
+            }
+        }
+        stage('Push to Docker Hub') {
+            agent any
+            steps {
+                script {
+                    def imageName = "lab4-jenkins:${BUILD_NUMBER}"
+                    sh "docker push ${imageName}"
+                }
+            }
+        }
     }
 }
