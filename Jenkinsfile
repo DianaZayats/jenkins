@@ -74,7 +74,7 @@ pipeline {
             steps {
                 script {
                     def imageName = "zzzayats/lab4-jenkins:${BUILD_NUMBER}"
-                    sh "docker push ${imageName}"
+                    sh "docker push ${imageName}" // test
                 }
             }
         }
