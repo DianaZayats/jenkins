@@ -50,5 +50,33 @@ pipeline {
                 }
             }
         }
+        stage('Build Docker Image') {
+            agent any
+            steps {
+                script {
+                    def imageName = "zzzayats/lab4-jenkins:${BUILD_NUMBER}"
+                    sh "docker build -t ${imageName} ."
+                }
+            }
+        }
+        stage('Docker Login') {
+            agent any
+            steps {
+                script {
+                    def dockerUsername = 'zzzayats' //  логін до Docker Hub
+                    def dockerPassword = 'PXSJFBJPEWGN200' //  пароль до Docker Hub
+                    sh "echo ${dockerPassword} | docker login -u ${dockerUsername} --password-stdin"
+                }
+            }
+        }
+        stage('Push to Docker Hub') {
+            agent any
+            steps {
+                script {
+                    def imageName = "zzzayats/lab4-jenkins:${BUILD_NUMBER}"
+                    sh "docker push ${imageName}"
+                }
+            }
+        }
     }
 }
