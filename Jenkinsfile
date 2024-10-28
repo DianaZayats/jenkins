@@ -63,8 +63,8 @@ pipeline {
             agent any
             steps {
                 script {
-                    def dockerUsername = 'zzzayats' //  логін до Docker Hub
-                    def dockerPassword = 'PXSJFJBPEWGNG200' //  пароль до Docker Hub
+                    def dockerUsername = 'zzzayats' 
+                    def dockerPassword = 'PXSJFJBPEWGNG200' 
                     sh "echo ${dockerPassword} | docker login -u ${dockerUsername} --password-stdin"
                 }
             }
